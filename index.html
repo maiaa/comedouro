@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<title></title>
+	<meta http-equiv="Content-Security-Policy" 
+         content="default-src *; 
+                  style-src * 'self' 'unsafe-inline' 'unsafe-eval'; 
+                  script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+<div id="main-container">
+	<div id="sub-container">	
+		<div class="navbar v8-theme">
+			<div class="navbar-inner">
+				<div class="label">Comedouro</div>
+				<div class="right">
+					<a href="#" id="open-menu-btn" class="open-menu">Menu</a>
+				</div>						
+			</div>	
+		</div>
+		<!-- INICIO MENU -->
+		<ul id="overflowMenu" class="overflow-menu rounded4" style="display: none">
+			<li><a class="btn-pop-up" href="#pop-cardapio">Opção 1</a></li>
+			<li><a class="btn-pop-up" href="#pop-config">Opção 2</a></li>
+		</ul>
+		<!-- FINAL MENU -->		
+		<div class="content">
+		<div id="roler" class="roler">	
+			<div class="page" id="page-1">
+			<div class="in">
+				<div class="title rounded4">
+					Toque no Botão abaixo para Montar a sua Pizza! 
+					<i class="fa fa-hand-o-right"></i>
+				</div>
+				<div class="icone-home rounded4">
+					<img src="img/dog.png" />
+					<a href="#" onclick="mudaTela('proximo');" class="btn btn-white rounded4">
+						CADASTRAR COMEDOURO
+					</a>
+				</div>			
+			</div>	
+			</div>
+
+			<!-- inicio pagina 2-->
+			<div class="page" id="page-2">
+				<div class="in">
+					<div class="title rounded4">
+						Escolha o tamanho da pizza! 
+						<i class="fa fa-hand-o-down"></i>
+					</div>
+					<div class="icone-steps rounded4">
+						<img src="./img/tamanhos-de-pizza.png" />
+						<div class="form_med">
+							<div>
+								<input class="ct-tipo" value="4" type="radio" id="tipo_familia" name="tamanho" />
+								<label for="tipo_familia">FAMÍLIA (4 sabores)</label>
+							</div>
+							<div>
+								<input class="ct-tipo" value="3" type="radio" id="tipo_grande" name="tamanho" />
+								<label for="tipo_grande">GRANDE (3 sabores)</label>
+							</div>
+							<div>
+								<input class="ct-tipo" value="2" type="radio" id="tipo_media" name="tamanho" />
+								<label for="tipo_media">MÉDIA (2 sabores)</label>
+							</div>	
+							<div>
+								<input class="ct-tipo" value="1" type="radio" id="tipo_broto" name="tamanho" />
+								<label for="tipo_broto">BROTINHO (1 sabor)</label>
+							</div>						
+						</div>
+					</div>
+					<div class="navigation">
+						<a onclick="mudaTela('anterior');" class="btn btn-white btn_inline rounded4" href="#"><i class="fa fa-hand-o-left"></i></a>	
+						<a style="visibility: hidden;" onclick="mudaTela('proximo');" class="btn btn-white btn_inline rounded4 btn-prox" href="#"><i class="fa fa-hand-o-right"></i></a>	
+					</div>							
+				</div>
+			</div>
+			<!-- fim pagina 2 -->
+		</div>	
+		</div>
+		<div class="footer v8-theme"></div>
+
+		<!-- DIVS POP-UP -->
+		<div id="pop-up" class="pop-up" style="display: none">
+			<div id="pop-cardapio" class="in" style="display: none">
+				<h3>Cardápio</h3>
+				<a href="#fechar" class="btn btn-white btn-pop-up">FECHAR</a>
+			</div>
+			<div id="pop-config" class="in" style="display: none">
+				<h4>Configurações do Aplicativo</h4>
+				<a href="#fechar" class="btn btn-white btn-pop-up">FECHAR</a>
+			</div>
+		</div>
+		<!-- FIM POP-UPS -->	
+
+	</div>	
+</div>
+
+
+<script type="text/javascript">
+	function openMenu(){
+		var menu = document.getElementById("overflowMenu");
+		menu.style.display = "block";
+	}
+	function closeMenu(){
+		var menu = document.getElementById("overflowMenu");
+		menu.style.display = "none";
+	}
+
+	function onDeviceReady(){
+		document.getElementById("open-menu-btn").addEventListener("click", openMenu, false);
+		var menu = document.getElementById("overflowMenu");
+		document.addEventListener("click", function( event ){
+		var seClicouDentro = menu.contains( event.target );
+		var seClicouBotao = document.getElementById("open-menu-btn").contains( event.target );
+
+		if( seClicouDentro ){
+			console.log('Clicou Dentro do Menu');
+		}else{
+			if( seClicouBotao ){
+				console.log('Clicou no botao');
+			}else{
+				console.log('Clicou Fora do Menu');
+				closeMenu();				
+			}
+		}
+		});
+		var popups = document.getElementsByClassName("btn-pop-up");
+		console.log( popups.length );
+		for( var i =0; i < popups.length; i++){
+			popups[i].addEventListener("click", function(){
+				var dest = this.getAttribute("href").replace("#","");
+				console.log( dest );
+				if( dest == 'fechar'){
+					//fecho todas as popups
+					document.getElementById("pop-up").style.display = "none";
+					document.getElementById("pop-cardapio").style.display = "none";
+				}else{
+
+				document.getElementById("pop-up").style.display = "block";
+		    	document.getElementById(dest).style.display = "block";
+
+				}
+			});
+		}
+		var radTamanhos = document.getElementsByClassName("ct-tipo");
+		var tamanho;
+		for( var i =0; i < radTamanhos.length; i++){
+			radTamanhos[i].addEventListener("click", function(){
+				tamanho = this.getAttribute("value");
+				console.log(tamanho);
+				document.getElementsByClassName("btn-prox")[0].style.visibility = "visible";
+				setSabores(tamanho);
+			});
+		}					
+	}
+	onDeviceReady();
+
+
+	function setSabores(qtd){
+		var selSabores = document.getElementsByClassName("ct-sabores");
+		for( var i =0; i < 4; i++){
+			selSabores[i].style.display = "none";
+		}		
+		for( var i =0; i < qtd; i++){
+			selSabores[i].style.display = "block";
+		}		
+	}
+
+	function mudaTela(direcao){
+		if( direcao == 'anterior'){
+			alvo = atual - 1;
+		}
+		if( direcao == 'proximo'){
+			alvo = atual + 1;
+		}
+		if( alvo == -1 ){
+			desliza(total-1);
+		}else if( alvo == total ){
+			desliza(0);
+		}else{
+			desliza(alvo);
+		}
+	}
+	function desliza(alvo){
+		margen = larguraTela * alvo;
+		alvoAtual = alvo;
+		adicionaClasse(paginas[alvoAtual], 'page-active');
+		document.getElementById("roler").style.transform = "translate3d(-"+ margen +"px, 0px, 0px)";
+		atual = alvo;
+	}
+	function adicionaClasse(el, className) {
+	  if (el.classList)
+	    el.classList.add(className)
+	  else if (!hasClass(el, className)) el.className += " " + className
+	}	
+	window.addEventListener('load', function(){
+		paginas = document.getElementsByClassName("page");
+		console.log(paginas.length);
+
+		if(typeof window.innerWidth != "undefined"){
+			larguraTela = window.innerWidth;
+			alturaTela = window.innerHeight;
+		}
+		console.log("Largura: "+larguraTela + " Altura: "+ alturaTela);
+		rolo = larguraTela * paginas.length;
+		console.log(rolo);
+		atual = 0;
+		total = rolo;
+
+		for(i=0; i < paginas.length; i++){
+			paginas[i].style.width = larguraTela + "px";
+		}
+		document.getElementById("roler").style.width = rolo + "px";
+
+		adicionaClasse(paginas[0], 'page-active');	
+
+	});
+</script>
+</body>
+</html>
