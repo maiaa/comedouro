@@ -118,17 +118,13 @@
 		var seClicouDentro = menu.contains( event.target );
 		var seClicouBotao = document.getElementById("open-menu-btn").contains( event.target );
 
-		if( seClicouDentro ){
-			console.log('Clicou Dentro do Menu');
-		}else{
-			if( seClicouBotao ){
-				console.log('Clicou no botao');
-			}else{
-				console.log('Clicou Fora do Menu');
-				closeMenu();				
-			}
-		}
+		if( !seClicouDentro ){
+			if( !seClicouBotao ){
+				closeMenu();
+			}			
+		}				
 		});
+
 		var popups = document.getElementsByClassName("btn-pop-up");
 		console.log( popups.length );
 		for( var i =0; i < popups.length; i++){
@@ -147,28 +143,23 @@
 				}
 			});
 		}
-		var radTamanhos = document.getElementsByClassName("ct-tipo");
-		var tamanho;
-		for( var i =0; i < radTamanhos.length; i++){
-			radTamanhos[i].addEventListener("click", function(){
-				tamanho = this.getAttribute("value");
-				console.log(tamanho);
-				document.getElementsByClassName("btn-prox")[0].style.visibility = "visible";
-				setSabores(tamanho);
-			});
-		}					
-	}
-	onDeviceReady();
+		var push = PushNotification.init({
+			"android": {
+				"senderID": "comedouro-2c048",
+				"badge": "true"
+			},
+			"ios": {
+				"alert": "true", 
+				"badge": "true", 
+				"sound": "true"
+			}
+		});
+		push.on('registration', function(data) {
+			//console.log("registration event");
+			//document.getElementById("regId").innerHTML = data.registrationId;
+			alert(data.registrationId);	
+		});		
 
-
-	function setSabores(qtd){
-		var selSabores = document.getElementsByClassName("ct-sabores");
-		for( var i =0; i < 4; i++){
-			selSabores[i].style.display = "none";
-		}		
-		for( var i =0; i < qtd; i++){
-			selSabores[i].style.display = "block";
-		}		
 	}
 
 	function mudaTela(direcao){
@@ -200,25 +191,20 @@
 	}	
 	window.addEventListener('load', function(){
 		paginas = document.getElementsByClassName("page");
-		console.log(paginas.length);
-
 		if(typeof window.innerWidth != "undefined"){
 			larguraTela = window.innerWidth;
 			alturaTela = window.innerHeight;
 		}
-		console.log("Largura: "+larguraTela + " Altura: "+ alturaTela);
 		rolo = larguraTela * paginas.length;
-		console.log(rolo);
 		atual = 0;
 		total = rolo;
-
 		for(i=0; i < paginas.length; i++){
 			paginas[i].style.width = larguraTela + "px";
 		}
 		document.getElementById("roler").style.width = rolo + "px";
-
 		adicionaClasse(paginas[0], 'page-active');	
 
+		onDeviceReady();
 	});
 </script>
 </body>

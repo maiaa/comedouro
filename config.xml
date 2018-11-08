@@ -30,4 +30,21 @@
     <!-- tela entrada -->
     <splash src="img/hdpi.png" platform="android" qualifier="hdpi" />
 
+    <!-- push plugin -->
+    <plugin name="phonegap-plugin-push" source="npm" spec="1.6.0">
+    <param name="SENDER_ID" value="comedouro-2c048" /><!-- número do projeto android -->
+    </plugin>
+    <!-- push plugin -->
+    <plugin name="cordova-plugin-whitelist" version="1" />
+  
+    <access origin="*"/>
+      <allow-intent href="http://*/*" />
+      <allow-intent href="https://*/*" />
+      <allow-intent href="tel:*" />
+      <allow-intent href="sms:*" />
+      <allow-intent href="mailto:*" />
+      <allow-intent href="geo:*" />
+    <allow-intent href="whatsapp:*" launch-external="yes"/>
+      <allow-intent href="market:*" launch-external="yes"/>
+
 </widget>
