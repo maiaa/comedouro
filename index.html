@@ -142,24 +142,7 @@
 
 				}
 			});
-		}
-		var push = PushNotification.init({
-			"android": {
-				"senderID": "comedouro-2c048",
-				"badge": "true"
-			},
-			"ios": {
-				"alert": "true", 
-				"badge": "true", 
-				"sound": "true"
-			}
-		});
-		push.on('registration', function(data) {
-			//console.log("registration event");
-			//document.getElementById("regId").innerHTML = data.registrationId;
-			alert(data.registrationId);	
-		});		
-
+		}	
 	}
 
 	function mudaTela(direcao){

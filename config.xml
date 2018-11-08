@@ -31,8 +31,7 @@
     <splash src="img/hdpi.png" platform="android" qualifier="hdpi" />
 
     <!-- push plugin -->
-    <plugin name="phonegap-plugin-push" source="npm" spec="1.6.0">
-    <param name="SENDER_ID" value="comedouro-2c048" /><!-- número do projeto android -->
+    <plugin name="cordova-plugin-firebase" spec="^2.0.0" />
     </plugin>
     <!-- push plugin -->
     <plugin name="cordova-plugin-whitelist" version="1" />
