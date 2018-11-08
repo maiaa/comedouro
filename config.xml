@@ -30,10 +30,7 @@
     <!-- tela entrada -->
     <splash src="img/hdpi.png" platform="android" qualifier="hdpi" />
 
-    <!-- push plugin -->
     <plugin name="cordova-plugin-firebase" spec="^2.0.0" />
-    </plugin>
-    <!-- push plugin -->
     <plugin name="cordova-plugin-whitelist" version="1" />
   
     <access origin="*"/>
@@ -45,5 +42,4 @@
       <allow-intent href="geo:*" />
     <allow-intent href="whatsapp:*" launch-external="yes"/>
       <allow-intent href="market:*" launch-external="yes"/>
-
 </widget>
